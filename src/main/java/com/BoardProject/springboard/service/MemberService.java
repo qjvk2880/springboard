@@ -32,9 +32,14 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public Long joinUser(MemberDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
-        return memberRepository.save(memberDto.toEntity()).getId();
+        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
+//        System.out.println("encodedPassword = " + encodedPassword);
+        return memberRepository.save(memberDto.toEntity(encodedPassword)).getId();
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+
+//        return memberRepository.save(memberDto.toEntity()).getId();
     }
 
     @Override
@@ -43,7 +48,7 @@ public class MemberService implements UserDetailsService {
         Member member = findName.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if(("admin").equals(username)){
+        if (("admin").equals(username)) {
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));

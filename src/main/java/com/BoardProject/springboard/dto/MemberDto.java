@@ -1,13 +1,11 @@
 package com.BoardProject.springboard.dto;
 
 import com.BoardProject.springboard.domain.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class MemberDto {
     private Long id;
@@ -15,19 +13,12 @@ public class MemberDto {
     private String password;
     private String email;
 
-    @Builder
-    public MemberDto(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
-    public Member toEntity() {
+    public Member toEntity(String encodedPassword) {
 
         return Member.builder()
                 .username(username)
                 .email(email)
-                .password(password)
+                .password(encodedPassword)
                 .build();
     }
 }
