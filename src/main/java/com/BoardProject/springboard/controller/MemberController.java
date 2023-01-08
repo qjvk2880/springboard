@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.lang.annotation.*;
 import java.util.List;
 
@@ -33,12 +32,13 @@ public class MemberController {
 
     @GetMapping("/memberLoginForm")
     public String login(){
+//        return "member/memberLoginForm";
         return "member/memberLoginForm";
     }
 
     @GetMapping("/memberLoginResult")
     public String loginResult() {
-        return "/member/memberLoginResult";
+        return "member/memberLoginResult";
     }
 
     @GetMapping("/memberList")

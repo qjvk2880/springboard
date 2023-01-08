@@ -9,13 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "member")
 @Setter @Getter
-public class Member {
+public class Member extends BaseTimeEntity implements Serializable {
 
     @Id @GeneratedValue
     @Column(name = "member_id")

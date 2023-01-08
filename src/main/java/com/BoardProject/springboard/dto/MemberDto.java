@@ -23,9 +23,11 @@ public class MemberDto {
     }
 
     public Member toEntity() {
+
         return Member.builder()
                 .username(username)
                 .email(email)
+                .password(password)
                 .build();
     }
 }
