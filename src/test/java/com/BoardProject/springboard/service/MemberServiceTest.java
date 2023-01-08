@@ -1,6 +1,7 @@
 package com.BoardProject.springboard.service;
 
 import com.BoardProject.springboard.domain.Member;
+import com.BoardProject.springboard.dto.MemberDto;
 import com.BoardProject.springboard.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ class MemberServiceTest {
                 .email("email")
                 .build();
         //when
-        Long joinId = memberService.join(member);
+        Long joinId = memberService.joinUser(member);
         //then
         Assertions.assertEquals(member, memberRepository.fineOne(joinId));
     }

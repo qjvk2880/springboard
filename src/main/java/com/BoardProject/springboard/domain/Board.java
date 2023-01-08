@@ -1,19 +1,18 @@
 package com.BoardProject.springboard.domain;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "board")
-@Getter
-@Setter
+@Getter @Setter
 public class Board {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "board_id")
-    private long id;
     private String title;
     private String content;
     private LocalDateTime createdDate;
