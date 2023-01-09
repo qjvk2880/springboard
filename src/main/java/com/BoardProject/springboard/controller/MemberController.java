@@ -26,8 +26,6 @@ public class MemberController {
 
     @PostMapping("/memberJoinForm")
     public String createMember(@ModelAttribute MemberDto member) {
-        System.out.println("member.getPassword() = " + member.getPassword());
-
         memberService.joinUser(member);
 
         return "redirect:/";

@@ -32,16 +32,15 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public Long joinUser(MemberDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
         String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
-//        System.out.println("encodedPassword = " + encodedPassword);
-        return memberRepository.save(memberDto.toEntity(encodedPassword)).getId();
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
-//        return memberRepository.save(memberDto.toEntity()).getId();
+        return memberRepository.save(memberDto.toEntity(encodedPassword)).getId();
+
     }
 
+    public Optional<Member> findByUsername(String username){
+        return memberRepository.findByUsername(username);
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> findName = memberRepository.findByUsername(username);
