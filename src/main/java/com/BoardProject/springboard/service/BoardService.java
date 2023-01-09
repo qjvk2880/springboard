@@ -20,8 +20,9 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
+
     @Transactional
-    public Long saveBoard(BoardDto boardDto,Member member) {
+    public Long saveBoard(BoardDto boardDto, Member member) {
         boardRepository.save(boardDto.toEntity(member));
         return boardDto.getId();
     }
@@ -36,5 +37,22 @@ public class BoardService {
 
     public void delete(Long id) {
         boardRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateVisit(Long id) {
+        Board board = boardRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("해당 게시글이 존재하지 않습니다."));
+        Long countVisit = board.getCountVisit() + 1L;
+
+        BoardDto boardDto = BoardDto.builder()
+                .countVisit(countVisit)
+                .build();
+
+        board.setCountVisit(boardDto.getCountVisit());
+    }
+
+    public List<Board> getUserBoardList(String username) {
+        return boardRepository.findAllByCreatedBy(username);
     }
 }

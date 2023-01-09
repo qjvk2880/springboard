@@ -41,7 +41,5 @@ public class BoardDto {
         countVisit = board.getCountVisit();
     }
 
-    public void updateVisit(Long countVisit){
-        this.countVisit = countVisit;
-    }
+
 }

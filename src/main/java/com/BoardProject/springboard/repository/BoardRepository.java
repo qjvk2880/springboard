@@ -13,4 +13,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Optional<Board> findById(Long id);
 
     void deleteById(Long id);
+
+    List<Board> findAllByCreatedBy(String username);
 }

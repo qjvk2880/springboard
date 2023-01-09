@@ -30,17 +30,16 @@ public class BoardController {
     }
 
     @PostMapping("/boardForm")
-    public String createBoard(@ModelAttribute BoardDto boardDto, Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetails userDetails = (UserDetails) principal;
-        String username = userDetails.getUsername();
+    public String createBoard(@ModelAttribute BoardDto boardDto) {
 
-        Optional<Member> member = memberService.findByUsername(username);
+        String username = memberService.getAuthUsername();
+
+        Member member = memberService.findByUsername(username).get();
         boardDto.setCreatedBy(username);
         boardDto.setCountVisit(1L);
-        boardService.saveBoard(boardDto, member.get());
+        boardService.saveBoard(boardDto, member);
 
-        return "redirect:/";
+        return "redirect:/board/boardList";
     }
 
     @GetMapping("/boardList")
@@ -53,6 +52,8 @@ public class BoardController {
     @GetMapping("/boardContent/{id}")
     public String boardContent(@PathVariable("id") Long id, Model model) {
         Board board = boardService.findById(id).get();
+        boardService.updateVisit(board.getId());
+
         model.addAttribute(board);
         return "/board/boardContent";
 

@@ -7,6 +7,7 @@ import com.BoardProject.springboard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -55,4 +56,9 @@ public class MemberService implements UserDetailsService {
         return new User(member.getUsername(), member.getPassword(), authorities);
     }
 
+    public String getAuthUsername() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        return userDetails.getUsername();
+    }
 }
