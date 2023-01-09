@@ -105,24 +105,24 @@
   <hr/>
   <button type="button" class="btn btn-default pull-right" onclick="location.href='/board/boardForm'">글쓰기</button>
 
-  <div class="center text-center">
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justifiy-content-center" th:if="${totalPage != 0}">
-        <li class="page-item"><a class="page-link" th:href="@{/board/boardList(page=${boards.pageable.pageNumber - 1}, searchText=${param.searchText})}">Previous</a></li>
-        <li class="" th:classappend="${page == boards.pageable.pageNumber + 1} ? 'disabled'" th:each="page : ${#numbers.sequence(startPage, endPage)}">
-          <a th:href="@{/board/boardList(page=${page - 1}, searchText=${param.searchText})}" th:text="${page}"></a>
-        </li>
-        <li class="page-item"><a class="page-link" th:href="@{/board/boardList(page=${boards.pageable.pageNumber + 1}, searchText=${param.searchText})}">Next</a></li>
-      </ul>
-    </nav>
-  </div>
+<!--  <div class="center text-center">-->
+<!--    <nav aria-label="Page navigation example">-->
+<!--      <ul class="pagination justifiy-content-center" th:if="${totalPage != 0}">-->
+<!--        <li class="page-item"><a class="page-link" th:href="@{/board/boardList(page=${boards.pageable.pageNumber - 1}, searchText=${param.searchText})}">Previous</a></li>-->
+<!--        <li class="" th:classappend="${page == boards.pageable.pageNumber + 1} ? 'disabled'" th:each="page : ${#numbers.sequence(startPage, endPage)}">-->
+<!--          <a th:href="@{/board/boardList(page=${page - 1}, searchText=${param.searchText})}" th:text="${page}"></a>-->
+<!--        </li>-->
+<!--        <li class="page-item"><a class="page-link" th:href="@{/board/boardList(page=${boards.pageable.pageNumber + 1}, searchText=${param.searchText})}">Next</a></li>-->
+<!--      </ul>-->
+<!--    </nav>-->
+<!--  </div>-->
 
-</div>
-<div  class="text-center">
-  <ul class="pagination">
+<!--</div>-->
+<!--<div  class="text-center">-->
+<!--  <ul class="pagination">-->
 
-  </ul>
-</div>
+<!--  </ul>-->
+<!--</div>-->
 
 <script src="static/js/bootstrap.bundle.min.js"></script>
 </body>

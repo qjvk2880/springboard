@@ -1,5 +1,6 @@
 package com.BoardProject.springboard.controller;
 
+import com.BoardProject.springboard.domain.Board;
 import com.BoardProject.springboard.domain.Member;
 import com.BoardProject.springboard.dto.BoardDto;
 import com.BoardProject.springboard.repository.BoardRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,7 +26,7 @@ import java.util.Optional;
 public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
-//    private final BoardRepository boardRepository;
+
     @GetMapping("/boardForm")
     public String addBoard() {
         return "/board/boardForm";
@@ -39,8 +41,15 @@ public class BoardController {
         Optional<Member> member = memberService.findByUsername(username);
         boardDto.setCreatedBy(username);
         boardDto.setCountVisit(1L);
-        boardService.saveBoard(boardDto,member.get());
+        boardService.saveBoard(boardDto, member.get());
 
         return "redirect:/";
+    }
+
+    @GetMapping("/boardList")
+    public String boardList(Model model) {
+        List<Board> boards = boardService.getAllBoardList();
+        model.addAttribute("boards",boards);
+        return "/board/boardList";
     }
 }
