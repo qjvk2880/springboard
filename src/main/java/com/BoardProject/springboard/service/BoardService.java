@@ -28,4 +28,8 @@ public class BoardService {
     public List<Board> getAllBoardList() {
         return boardRepository.findAll();
     }
+
+    public Optional<Board> findById(Long id) {
+        return boardRepository.findById(id);
+    }
 }

@@ -12,10 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,5 +48,13 @@ public class BoardController {
         List<Board> boards = boardService.getAllBoardList();
         model.addAttribute("boards",boards);
         return "/board/boardList";
+    }
+
+    @GetMapping("/boardContent/{id}")
+    public String boardContent(@PathVariable("id") Long id, Model model) {
+        Board board = boardService.findById(id).get();
+        model.addAttribute(board);
+        return "/board/boardContent";
+
     }
 }
