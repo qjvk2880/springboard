@@ -27,18 +27,6 @@ public class BoardService {
         return boardDto.getId();
     }
 
-    public List<Board> getAllBoardList() {
-        return boardRepository.findAll();
-    }
-
-    public Optional<Board> findById(Long id) {
-        return boardRepository.findById(id);
-    }
-
-    public void delete(Long id) {
-        boardRepository.deleteById(id);
-    }
-
     @Transactional
     public void updateVisit(Long id) {
         Board board = boardRepository.findById(id).orElseThrow(() ->
@@ -49,7 +37,29 @@ public class BoardService {
                 .countVisit(countVisit)
                 .build();
 
-        board.setCountVisit(boardDto.getCountVisit());
+        board.updateVisit(boardDto.getCountVisit());
+    }
+
+    @Transactional
+    public void updateBoard(BoardDto boardDto) {
+        Long id = boardDto.getId();
+        Board board = boardRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("해당 게시글이 존재하지 않습니다."));
+
+        board.updateBoard(boardDto);
+
+    }
+
+    public List<Board> getAllBoardList() {
+        return boardRepository.findAll();
+    }
+
+    public Optional<Board> findById(Long id) {
+        return boardRepository.findById(id);
+    }
+
+    public void delete(Long id) {
+        boardRepository.deleteById(id);
     }
 
     public List<Board> getUserBoardList(String username) {

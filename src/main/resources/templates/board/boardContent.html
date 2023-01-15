@@ -16,7 +16,7 @@
             background: #aaa;
         }
 
-        #delete {
+        .crudButton {
             display: inline-block;
             font-weight: 400;
             color: white;
@@ -98,9 +98,12 @@
                 </dl>
             </div>
         </div>
-        <button type="button" id="delete"
+        <button type="button" class = "crudButton" id="crudButton delete"
                 th:if="${board.createdBy} == ${#authentication.name}"
                 th:onclick="|location.href='@{/board/delete(id=${board.id})}'|">게시글 삭제</button>
+        <button type="button" class = "crudButton" id="crudButton update"
+                th:if="${board.createdBy} == ${#authentication.name}"
+                th:onclick="|location.href='@{/board/update/{id}(id=${board.id})}'|">게시글 수정</button>
     </div>
 </div>
 <!--<form action="boardContent.html" th:action method="post">-->

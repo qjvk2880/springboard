@@ -1,5 +1,6 @@
 package com.BoardProject.springboard.domain;
 
+import com.BoardProject.springboard.dto.BoardDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,5 +45,10 @@ public class Board {
 
     public void updateVisit(Long countVisit) {
         this.countVisit = countVisit;
+    }
+
+    public void updateBoard(BoardDto boardDto) {
+        this.content = boardDto.getContent();
+        this.title = boardDto.getTitle();
     }
 }

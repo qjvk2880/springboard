@@ -45,7 +45,7 @@ public class BoardController {
     @GetMapping("/boardList")
     public String boardList(Model model) {
         List<Board> boards = boardService.getAllBoardList();
-        model.addAttribute("boards",boards);
+        model.addAttribute("boards", boards);
         return "/board/boardList";
     }
 
@@ -60,8 +60,21 @@ public class BoardController {
     }
 
     @GetMapping("/delete")
-    public String boardDelete(Long id){
+    public String boardDelete(Long id) {
         boardService.delete(id);
+        return "redirect:/board/boardList";
+    }
+
+    @GetMapping("/update/{id}")
+    public String boardUpdateView(@PathVariable Long id, Model model) {
+        Board board = boardService.findById(id).get();
+        model.addAttribute("board", board);
+        return "/board/boardUpdate";
+    }
+
+    @PostMapping("/update/{id}")
+    public String boardUpdate(@ModelAttribute BoardDto boardDto) {
+        boardService.updateBoard(boardDto);
         return "redirect:/board/boardList";
     }
 }
