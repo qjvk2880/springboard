@@ -99,6 +99,7 @@
             </div>
         </div>
         <button type="button" id="delete"
+                th:if="${board.createdBy} == ${#authentication.name}"
                 th:onclick="|location.href='@{/board/delete(id=${board.id})}'|">게시글 삭제</button>
     </div>
 </div>
