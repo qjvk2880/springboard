@@ -68,6 +68,12 @@
       <h2>글 수정</h2>
       <!--            enctype="multipart/form-data"-->
       <form action="boardUpdate.html" th:action method="post">
+<!--        <div>-->
+        <input type='hidden' name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<!--          <td th:text="'작성자 : ' + ${board.createdBy}"></td>-->
+        <div class="form-group">
+          <input type="text" class="form-control" id="createdBy"  readonly th:value="${board.createdBy}" name = "createdBy">
+        </div>
         <div class="form-group">
           <input type="text" class="form-control" id="title" th:value="${board.title}" name = "title">
         </div>

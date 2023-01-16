@@ -7,6 +7,9 @@ import com.BoardProject.springboard.repository.BoardRepository;
 import com.BoardProject.springboard.service.BoardService;
 import com.BoardProject.springboard.service.MemberService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,10 +72,14 @@ public class BoardController {
     @GetMapping("/update/{id}")
     public String boardUpdateView(@PathVariable Long id, Model model) {
         Board board = boardService.findById(id).get();
-        model.addAttribute("board", board);
+//        if (!(board.getCreatedBy().equals(memberService.getAuthUsername()))) {
+//            return "redirect:/board/boardList";
+//        }
+        model.addAttribute( "board", board);
         return "/board/boardUpdate";
     }
 
+    @PreAuthorize("principal.username == #boardDto.createdBy")
     @PostMapping("/update/{id}")
     public String boardUpdate(@ModelAttribute BoardDto boardDto) {
         boardService.updateBoard(boardDto);
