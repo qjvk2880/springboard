@@ -100,7 +100,7 @@
         </div>
         <button type="button" class = "crudButton" id="crudButton delete"
                 th:if="${board.createdBy} == ${#authentication.name}"
-                th:onclick="|location.href='@{/board/delete(id=${board.id})}'|">게시글 삭제</button>
+                th:onclick="|location.href='@{/board/delete/{id}(id=${board.id})}'|">게시글 삭제</button>
         <button type="button" class = "crudButton" id="crudButton update"
                 th:if="${board.createdBy} == ${#authentication.name}"
                 th:onclick="|location.href='@{/board/update/{id}(id=${board.id})}'|">게시글 수정</button>

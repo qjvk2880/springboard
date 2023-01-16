@@ -7,6 +7,7 @@ import com.BoardProject.springboard.repository.BoardRepository;
 import com.BoardProject.springboard.service.BoardService;
 import com.BoardProject.springboard.service.MemberService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -63,19 +64,22 @@ public class BoardController {
 
     }
 
-    @GetMapping("/delete")
-    public String boardDelete(Long id) {
-        boardService.delete(id);
-        return "redirect:/board/boardList";
+    @GetMapping("/delete/{id}")
+    public String boardDelete(@PathVariable Long id) {
+        String createdBy = boardService.findById(id).get().getCreatedBy();
+        String authUsername = memberService.getAuthUsername();
+        if (createdBy.equals(authUsername)) {
+            boardService.delete(id);
+            return "redirect:/board/boardList";
+        } else {
+            throw new AccessDeniedException("");
+        }
     }
 
     @GetMapping("/update/{id}")
     public String boardUpdateView(@PathVariable Long id, Model model) {
         Board board = boardService.findById(id).get();
-//        if (!(board.getCreatedBy().equals(memberService.getAuthUsername()))) {
-//            return "redirect:/board/boardList";
-//        }
-        model.addAttribute( "board", board);
+        model.addAttribute("board", board);
         return "/board/boardUpdate";
     }
 

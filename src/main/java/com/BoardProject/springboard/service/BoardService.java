@@ -6,6 +6,7 @@ import com.BoardProject.springboard.dto.BoardDto;
 import com.BoardProject.springboard.repository.BoardRepository;
 import com.BoardProject.springboard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
