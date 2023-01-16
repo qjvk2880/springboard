@@ -58,7 +58,6 @@ public class BoardController {
     public String boardContent(@PathVariable("id") Long id, Model model) {
         Board board = boardService.findById(id).get();
         boardService.updateVisit(board.getId());
-
         model.addAttribute(board);
         return "/board/boardContent";
 
@@ -83,10 +82,17 @@ public class BoardController {
         return "/board/boardUpdate";
     }
 
-    @PreAuthorize("principal.username == #boardDto.createdBy")
+//    @PreAuthorize("principal.username == #boardDto.createdBy")
     @PostMapping("/update/{id}")
     public String boardUpdate(@ModelAttribute BoardDto boardDto) {
-        boardService.updateBoard(boardDto);
-        return "redirect:/board/boardList";
+        String createdBy = boardDto.getCreatedBy();
+        String authUsername = memberService.getAuthUsername();
+
+        if (createdBy.equals(authUsername)) {
+            boardService.updateBoard(boardDto);
+            return "redirect:/board/boardList";
+        } else {
+            throw new AccessDeniedException("");
+        }
     }
 }
