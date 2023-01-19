@@ -38,7 +38,6 @@ public class BoardController {
     public String createBoard(@ModelAttribute BoardDto boardDto) {
 
         String username = memberService.getAuthUsername();
-
         Member member = memberService.findByUsername(username).get();
         boardDto.setCreatedBy(username);
         boardDto.setCountVisit(1L);
@@ -73,6 +72,7 @@ public class BoardController {
         } else {
             throw new AccessDeniedException("");
         }
+
     }
 
     @GetMapping("/update/{id}")
@@ -89,7 +89,6 @@ public class BoardController {
         }
     }
 
-    //    @PreAuthorize("principal.username == #boardDto.createdBy")
     @PostMapping("/update/{id}")
     public String boardUpdate(@ModelAttribute BoardDto boardDto) {
         boardService.updateBoard(boardDto);

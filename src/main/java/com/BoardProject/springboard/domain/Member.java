@@ -18,7 +18,8 @@ import java.util.List;
 @Setter @Getter
 public class Member extends BaseTimeEntity implements Serializable {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "member_id")
     private Long id;
 
@@ -33,12 +34,16 @@ public class Member extends BaseTimeEntity implements Serializable {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Board> boardList = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "member")
+//    private List<Comment> boardCommentList = new ArrayList<>();
+
     @Builder
-    public Member(String username, String password, String email,List<Board> boardList) {
+    public Member(String username, String password, String email,List<Board> boardList, List<Comment> boardCommentList) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.boardList = boardList;
+//        this.boardCommentList = boardCommentList;
     }
 
     protected Member() {}

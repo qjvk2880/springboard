@@ -1,6 +1,7 @@
 package com.BoardProject.springboard.domain;
 
 import com.BoardProject.springboard.dto.BoardDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "board")
@@ -26,13 +29,17 @@ public class Board {
     @JoinColumn(name="member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "board", cascade=CascadeType.REMOVE)
+    @JsonIgnoreProperties({"board"})
+    private List<Comment> boardCommentList = new ArrayList<>();
+
     public void setMember(Member member){
         this.member = member;
         member.getBoardList().add(this);
     }
 
     @Builder
-    public Board(String title, String content, String createdBy, Long countVisit,Member member) {
+    public Board(String title, String content, String createdBy, Long countVisit,Member member,List<Comment> boardCommentList) {
         this.title = title;
         this.content = content;
         this.createdBy = createdBy;
@@ -41,6 +48,7 @@ public class Board {
             member.getBoardList().remove(this);
         }
         this.member = member;
+//        this.boardCommentList = boardCommentList;
     }
 
     public void updateVisit(Long countVisit) {

@@ -106,15 +106,16 @@
                 th:onclick="|location.href='@{/board/update/{id}(id=${board.id})}'|">게시글 수정</button>
     </div>
 </div>
-<!--<form action="boardContent.html" th:action method="post">-->
-<!--    <div class="comment-form" style="text-align: center;">-->
-<!--        <div class="comment-form2" style="width:300px;height: 200px;display: inline-block">-->
-<!--            <label for="content">댓글 달기</label>-->
-<!--            <textarea class="form-control" id="content" name="content" rows="3"></textarea>-->
-<!--            <button type="submit" class="btn btn-primary" onclick="window.location.reload()">작성</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
+<form th:action="@{/comment/write/{board_id}(board_id=${board.id})}" method="post">
+    <div class="comment-form" style="text-align: center;">
+        <div class="comment-form2" style="width:300px;height: 200px;display: inline-block">
+            <label for="content">댓글 달기</label>
+            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+<!--            <input type="hidden" name = "board_id" th:value="${board.id}">-->
+            <button type="submit" class="btn btn-primary" onclick="window.location.reload()">작성</button>
+        </div>
+    </div>
+</form>
 <!--<div class="container">-->
 <!--    <table class="table table-hover">-->
 <!--        <tr>-->
