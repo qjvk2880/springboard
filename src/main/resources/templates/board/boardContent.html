@@ -116,23 +116,27 @@
         </div>
     </div>
 </form>
-<!--<div class="container">-->
-<!--    <table class="table table-hover">-->
-<!--        <tr>-->
-<!--            <th>번호</th>-->
-<!--            <th>작성자</th>-->
-<!--            <th>내용</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="comment : ${comments}">-->
-<!--            <td th:text="${comment.id}"></td>-->
-<!--            <td th:text="${comment.created_by}"></td>-->
-<!--            <td th:text="${comment.content}"></td>-->
-
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
+<div class="container">
+    <table class="table table-hover">
+        <tr>
+            <th>작성자</th>
+            <th>내용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment : ${comments}">
+            <td style="display: none" th:text="${comment.id}"></td>
+            <td th:text="${comment.createdBy}"></td>
+            <td th:text="${comment.content}"></td>
+            <td><button type="button" class = "crudButton"
+                    th:if="${comment.createdBy} == ${#authentication.name}"
+                    th:onclick="|location.href='@{/comment/delete/{id}(id=${comment.id})}'|">댓글 삭제</button></td>
+            <td><button type="button" class = "crudButton"
+                    th:if="${comment.createdBy} == ${#authentication.name}"
+                    th:onclick="|location.href='@{/board/update/{id}(id=${board.id})}'|">댓글 수정</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

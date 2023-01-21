@@ -1,6 +1,7 @@
 package com.BoardProject.springboard.controller;
 
 import com.BoardProject.springboard.domain.Board;
+import com.BoardProject.springboard.domain.Comment;
 import com.BoardProject.springboard.domain.Member;
 import com.BoardProject.springboard.dto.BoardDto;
 import com.BoardProject.springboard.repository.BoardRepository;
@@ -57,7 +58,10 @@ public class BoardController {
     public String boardContent(@PathVariable("id") Long id, Model model) {
         Board board = boardService.findById(id).get();
         boardService.updateVisit(board.getId());
-        model.addAttribute(board);
+
+        List<Comment> comments = board.getBoardCommentList();
+        model.addAttribute("board", board);
+        model.addAttribute("comments", comments);
         return "/board/boardContent";
 
     }

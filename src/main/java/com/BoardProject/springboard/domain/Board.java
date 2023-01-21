@@ -29,7 +29,7 @@ public class Board {
     @JoinColumn(name="member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "board", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JsonIgnoreProperties({"board"})
     private List<Comment> boardCommentList = new ArrayList<>();
 
