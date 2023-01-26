@@ -8,6 +8,10 @@ import com.BoardProject.springboard.repository.BoardRepository;
 import com.BoardProject.springboard.service.BoardService;
 import com.BoardProject.springboard.service.MemberService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,9 +52,20 @@ public class BoardController {
     }
 
     @GetMapping("/boardList")
-    public String boardList(Model model) {
-        List<Board> boards = boardService.getAllBoardList();
+    public String boardList(Model model,
+                            @PageableDefault(page = 0, size = 3, direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Board> boards = boardService.getAllBoardList(pageable);
+        System.out.println("boards.toString() = " + boards.toString());
         model.addAttribute("boards", boards);
+
+        int nowPage = boards.getPageable().getPageNumber() + 1;
+        int startPage =  Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage+9, boards.getTotalPages());
+
+        model.addAttribute("nowPage",nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "/board/boardList";
     }
 

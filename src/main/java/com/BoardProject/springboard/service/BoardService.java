@@ -6,6 +6,8 @@ import com.BoardProject.springboard.dto.BoardDto;
 import com.BoardProject.springboard.repository.BoardRepository;
 import com.BoardProject.springboard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,8 +53,8 @@ public class BoardService {
 
     }
 
-    public List<Board> getAllBoardList() {
-        return boardRepository.findAll();
+    public Page<Board> getAllBoardList(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
 
     public Optional<Board> findById(Long id) {
